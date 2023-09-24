@@ -1,135 +1,135 @@
 public class ArrayLists {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		DynamicArray Names = new DynamicArray(10);
+        DynamicArray Names = new DynamicArray(10);
 
-		// Long story short, Dynamic Array is basically just ArrayList
-		// Just use ArrayList because it's so much easier compared to this code below
-		// This is just a demo of how ArrayList work under the hood
+        // Long story short, Dynamic Array is basically just ArrayList
+        // Just use ArrayList because it's so much easier compared to this code below
+        // This is just a demo of how ArrayList work under the hood
 
-		Names.add("A");
-		Names.add("B");
-		Names.add("C");
-		Names.add("D");
-		Names.add("E");
-		Names.add("F");
+        Names.add("A");
+        Names.add("B");
+        Names.add("C");
+        Names.add("D");
+        Names.add("E");
+        Names.add("F");
 
-		System.out.println(Names);
-		System.out.println("Size: "+Names.size);
-		System.out.println("Capacity: "+Names.capacity);
-		System.out.println("Empty: "+Names.isEmpty());
-		System.out.println("Letter Index: "+Names.search("C"));
+        System.out.println(Names);
+        System.out.println("Size: "+Names.size);
+        System.out.println("Capacity: "+Names.capacity);
+        System.out.println("Empty: "+Names.isEmpty());
+        System.out.println("Letter Index: "+Names.search("C"));
 
-		Names.delete("B");
-		Names.delete("F");
-		Names.delete("E");
-		Names.insert(0, "@");
+        Names.delete("B");
+        Names.delete("F");
+        Names.delete("E");
+        Names.insert(0, "@");
 
-		System.out.println(Names);
-		System.out.println("Size: "+Names.size);
-		System.out.println("Capacity: "+Names.capacity);
-		System.out.println("Empty: "+Names.isEmpty());
-		System.out.println("Letter Index: "+Names.search("C"));
-	}
+        System.out.println(Names);
+        System.out.println("Size: "+Names.size);
+        System.out.println("Capacity: "+Names.capacity);
+        System.out.println("Empty: "+Names.isEmpty());
+        System.out.println("Letter Index: "+Names.search("C"));
+    }
 }
 
 class DynamicArray {
-	Object[] array;
-	int size;
-	int capacity = 10;
+    Object[] array;
+    int size;
+    int capacity = 10;
 
-	public DynamicArray() {
-		this.array = new Object[capacity];
-	}
+    public DynamicArray() {
+        this.array = new Object[capacity];
+    }
 
-	public DynamicArray(int capacity) {
-		this.capacity = capacity;
-		this.array = new Object[capacity];
-	}
+    public DynamicArray(int capacity) {
+        this.capacity = capacity;
+        this.array = new Object[capacity];
+    }
 
-	public void add(Object data) {
-		if(size >= capacity) {
-			grow();
-		}
-		array[size] = data;
-		++size;
-	}
+    public void add(Object data) {
+        if(size >= capacity) {
+            grow();
+        }
+        array[size] = data;
+        ++size;
+    }
 
-	public void insert(int index, Object data) {
-		if(size >= capacity) {
-			grow();
-		}
+    public void insert(int index, Object data) {
+        if(size >= capacity) {
+            grow();
+        }
 
-		for (int i = size; i > index; --i) {
-			array[i] = array[i - 1];
-		}
-		array[index] = data;
-		++size;
-	}
+        for (int i = size; i > index; --i) {
+            array[i] = array[i - 1];
+        }
+        array[index] = data;
+        ++size;
+    }
 
-	public void delete(Object data) {
-		for(int i = 0; i < size; ++i) {
-			if(array[i] == data) {
-				for(int j = 0; j < (size - i - 1); ++j) {
-					array[i + j] = array[i + j + 1];
-				}
-				array[size - 1] = null;
-				--size;
-				if(size <= (int)(capacity / 3)) {
-					shrink();
-				}
-				break;
-			}
-		}
-	}
+    public void delete(Object data) {
+        for(int i = 0; i < size; ++i) {
+            if(array[i] == data) {
+                for(int j = 0; j < (size - i - 1); ++j) {
+                    array[i + j] = array[i + j + 1];
+                }
+                array[size - 1] = null;
+                --size;
+                if(size <= (int)(capacity / 3)) {
+                    shrink();
+                }
+                break;
+            }
+        }
+    }
 
-	public int search(Object data) {
-		for(int i = 0; i < size; ++i) {
-			if(array[i] == data) {
-				return i;
-			}
-		}
-		return -1;
-	}
+    public int search(Object data) {
+        for(int i = 0; i < size; ++i) {
+            if(array[i] == data) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-	private void grow() {
-		int newCapacity = (int)(capacity * 2);
-		Object[] newArray = new Object[newCapacity];
+    private void grow() {
+        int newCapacity = (int)(capacity * 2);
+        Object[] newArray = new Object[newCapacity];
 
-		for(int i = 0; i < size; ++i) {
-			newArray[i] = array[i];
-		}
-		capacity = newCapacity;
-		array = newArray;
-	}
+        for(int i = 0; i < size; ++i) {
+            newArray[i] = array[i];
+        }
+        capacity = newCapacity;
+        array = newArray;
+    }
 
-	private void shrink() {
-		int newCapacity = (int)(capacity / 2);
-		Object[] newArray = new Object[newCapacity];
+    private void shrink() {
+        int newCapacity = (int)(capacity / 2);
+        Object[] newArray = new Object[newCapacity];
 
-		for(int i = 0; i < size; ++i) {
-			newArray[i] = array[i];
-		}
-		capacity = newCapacity;
-		array = newArray;
-	}
+        for(int i = 0; i < size; ++i) {
+            newArray[i] = array[i];
+        }
+        capacity = newCapacity;
+        array = newArray;
+    }
 
-	public boolean isEmpty() {
-		return size == 0;
-	}
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-	public String toString() {
-		String string = "";
+    public String toString() {
+        String string = "";
 
-		for(int i = 0; i < capacity; ++i) {	// or i < capacity; if you wanted to see the entire array
-			string += array[i] + ", ";
-		}
+        for(int i = 0; i < capacity; ++i) {	// or i < capacity; if you wanted to see the entire array
+            string += array[i] + ", ";
+        }
 
-		if(string != "") {
-			string = "[" +string.substring(0, string.length() - 2)+ "]";
-		} else {
-			string = "[]";
-		}
-		return string;
-	}
+        if(string != "") {
+            string = "[" +string.substring(0, string.length() - 2)+ "]";
+        } else {
+            string = "[]";
+        }
+        return string;
+    }
 }
